@@ -1,0 +1,41 @@
+==== Factorial Calculation with Exception Handling ====
+
+SQL> DECLARE
+       V_NUM NUMBER := &P_INPUT_NUMBER;
+       V_FACTORIAL NUMBER := 1;
+   
+       E_NEGATIVE_NUMBER EXCEPTION;
+     BEGIN
+      IF V_NUM < 0 THEN
+         RAISE E_NEGATIVE_NUMBER;
+      ELSIF V_NUM = 0 THEN
+         V_FACTORIAL := 1;   
+      ELSE 
+         FOR I IN 1..V_NUM LOOP
+         V_FACTORIAL := V_FACTORIAL * I;
+       END LOOP;
+      END IF;
+   
+    DBMS_OUTPUT.PUT_LINE('FACTORIAL OF ' || V_NUM || ' = ' || V_FACTORIAL);
+   
+    EXCEPTION
+       WHEN E_NEGATIVE_NUMBER THEN
+          DBMS_OUTPUT.PUT_LINE('YOU CAN NOT ENTER NEGATIVE NUMBER');
+
+       WHEN VALUE_ERROR THEN
+          DBMS_OUTPUT.PUT_LINE('PLASE INTER A VALID NUMBER');
+  
+       WHEN OTHERS THEN 
+          DBMS_OUTPUT.PUT_LINE('CHECK YOUR PROGRAM: ' || SQLERRM);
+  
+   END;
+   /
+
+=== OUTPUT ===
+Enter value for p_input_number: 5
+old   2:   V_NUM NUMBER := &P_INPUT_NUMBER;
+new   2:   V_NUM NUMBER := 5;
+FACTORIAL OF 5 = 120
+
+PL/SQL procedure successfully completed.
+
