@@ -1,0 +1,46 @@
+CREATE VALUE SET AND ADD TO REPORT PARAMETER
+
+Go to:
+
+Application Developer
+→ Application
+→ Validation
+→ Set
+
+Create Value Set:
+
+Name: SAFA_VS_DNO
+Data Type: NUMBER
+Size: 4
+Validation Type: TABLE
+
+Click Edit Information:
+
+Table Name: EMP
+Column Name: DEPTNO
+
+Save.
+
+Go to:
+
+Application Developer
+→ Concurrent
+→ Program
+
+Query the report:
+
+SAFASUMSALREPORT
+
+Open Parameters.
+
+Attach Value Set:
+
+SAFA_VS_DNO
+
+Save.
+Switch Responsibility.
+Submit ANILPARREPORT.
+Open DNO parameter.
+LOV will display DEPTNO values such as:
+
+10, 20, 30
