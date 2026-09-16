@@ -1,0 +1,15 @@
+=== STEPS TO REGISTER A FORM IN ORACLE EBS===
+
+1. Create the Form in Oracle Forms Builder → save as .fmb
+2. Compile the Form → generate .fmx
+3. Copy .fmx to EBS server → $CUSTOM_TOP/forms/US
+4. Login to Oracle EBS
+5. Open Application Developer
+6. Register the Form → Application > Form
+7. Create a Function → Application > Function
+8. Add the Function to a Menu → Application > Menu
+9. Create a Request Group if Concurrent Programs/Reports are needed
+10. Create a new Responsibility
+11. Attach the Menu and Request Group to the Responsibility
+12. Assign the Responsibility to a User
+13. Login with the User and test the Form
