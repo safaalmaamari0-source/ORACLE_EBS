@@ -1,0 +1,101 @@
+ORACLE FORMS – CREATE LOV AND RECORD GROUP
+
+1. CREATE THE LOV IN ORACLE FORMS BUILDER
+
+1. Open Oracle Forms Builder.
+2. Open or create the required form.
+3. Create the Canvas.
+4. Create the Data Block based on the EMP table.
+5. Create a Record Group (RG) for the department values.
+
+Example Query:
+
+SELECT DEPTNO, DNAME
+FROM DEPT;
+
+6. Create an LOV (List of Values).
+7. Set the LOV to get its data from the Record Group.
+8. Attach the LOV to the DEPTNO item in the EMP block.
+9. Test the LOV and confirm that the department values are displayed.
+
+
+2. SAVE AND COMPILE THE FORM
+
+1. Save the form as:
+
+FORM_NAME.fmb
+
+2. Compile the form to generate:
+
+FORM_NAME.fmx
+
+
+3. MOVE THE FORM TO THE ORACLE EBS SERVER
+
+Using WinSCP, copy the .fmx file to the EBS Forms directory:
+
+/u01/.../fnd/12.0.0/forms/US
+
+Example:
+
+EMP_FORM.fmx
+
+
+4. REGISTER THE FORM IN ORACLE EBS
+
+Navigate to:
+
+Application Developer → Application
+
+A. REGISTER THE FORM
+
+Go to:
+
+Application → Form
+
+Create a new Form definition and enter the .fmx file name.
+
+Save.
+
+
+B. CREATE A FUNCTION
+
+Go to:
+
+Application → Function
+
+Create a new function and connect it to the registered Form.
+
+Save.
+
+
+C. ATTACH THE FUNCTION TO A MENU
+
+Go to:
+
+Application → Menu
+
+1. Query your existing Menu.
+2. Add the newly created Function.
+3. Save.
+
+
+5. TEST THE FORM IN EBS
+
+1. Switch to your Forms Responsibility.
+2. Open the Menu.
+3. Open the EMP form.
+4. Test the LOV for DEPTNO.
+5. Insert data
+
+6. Save the changes.
+
+
+6. VERIFY THE DATA IN THE DATABASE
+
+Run:
+
+SELECT *
+FROM EMP;
+
+You should see the records that were inserted or updated through the Oracle Form.
