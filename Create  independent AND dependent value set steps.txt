@@ -1,0 +1,87 @@
+========CREATE INDEPENDENT VALUE SET========
+
+Navigate to:
+
+Application Developer
+→ Application
+→ Validation
+→ Set
+
+Enter:
+
+Name: SAFA_VS_COUNTRY
+Description: SAFA Country Value Set
+Format Type / Datatype: Char
+Maximum Size: 20
+Validation Type: Independent
+
+Save.
+
+ADD VALUES TO THE INDEPENDENT VALUE SET
+
+Navigate to:
+
+Application Developer
+→ Application
+→ Validation
+→ Values
+
+Enter:
+
+Value Set Name: SAFA_VS_COUNTRY
+
+Add:
+
+Value Description
+OMAN Oman
+INDIA India
+USA USA
+
+Save.
+
+===========CREATE DEPENDENT VALUE SET==========
+
+Navigate to:
+
+Application Developer
+→ Application
+→ Validation
+→ Set
+
+Enter:
+
+Name: SAFA_VS_CITY
+Description: SAFA City Value Set
+Format Type / Datatype: Char
+Maximum Size: 20
+Validation Type: Dependent
+
+Click Edit Information.
+
+Independent Value Set: SAFA_VS_COUNTRY
+
+Click OK.
+
+Save.
+
+ADD VALUES TO THE DEPENDENT VALUE SET
+
+Navigate to:
+
+Application Developer
+→ Application
+→ Validation
+→ Values
+
+Enter:
+
+Value Set Name: SAFA_VS_CITY
+
+Add:
+
+Independent Value Dependent Value Description
+OMAN MUSCAT Muscat
+INDIA DELHI Delhi
+USA NEW YORK New York
+
+Save.
