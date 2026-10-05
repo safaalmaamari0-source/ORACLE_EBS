@@ -1,0 +1,134 @@
+OSI – SQL*Loader Steps
+
+1. Create the Control File
+
+Open Notepad and save it as:
+
+SAFAACONTROL.ctl
+
+LOAD DATA
+INFILE '/u01/install/VISION/fs1/EBSapps/appl/fnd/12.0.0/reports/US/SAFAADATA.dat'
+INTO TABLE SAFAA_TEST
+FIELDS TERMINATED BY ","
+OPTIONALLY ENCLOSED BY '"'
+(ID, NAME, COURSE)
+
+
+2. Create the Data File
+
+Open another Notepad and save it as:
+
+SAFAADATA.dat
+
+1,'SAFAA','ORACLE'
+2,'SUNIL','C++'
+3,'JOHN','CYBERSECURITY'
+4,'SMITH','JAVA'
+5,'CLARK','ORACLE'
+
+
+3. Create the Table
+
+Open SQL*Plus:
+
+SQL> CREATE TABLE SAFAA_TEST
+  2  (ID NUMBER,
+  3   NAME CHAR(50),
+  4   COURSE VARCHAR2(100)
+  5  );
+
+Table created.
+SQL> DESC SAFAA_TEST;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               CHAR(50)
+ COURSE                                             VARCHAR2(100)
+
+
+
+
+4. Run SQL*Loader
+
+Open:
+
+Start → CMD
+
+Type:
+
+C:\> sqlldr
+
+Then run:
+
+C:\Users\ask20>sqlldr userid=apps/apps@EBSDB control='/u01/install/VISION/fs1/EBSapps/appl/fnd/12.0.0/reports/US/SAFAACONTROL.ctl'
+
+
+5. Check SQL*Loader Files
+
+LOG file     → loading result
+DISCARD file → discarded records
+BAD file     → records with errors
+
+
+6. Check the Database Table
+
+In SQL*Plus:
+
+SQL> SELECT * FROM SAFAA_TEST;
+
+THE OUTPUT:
+
+
+SQL> SELECT * FROM SAFAA_TEST;
+
+        ID NAME
+---------- --------------------------------------------------
+COURSE
+--------------------------------------------------------------------------------
+         1 'SAFAA'
+'ORACLE'
+
+         2 'SUNIL'
+'C++'
+
+         3 'JOHN'
+'CYBERSECURITY'
+
+
+        ID NAME
+---------- --------------------------------------------------
+COURSE
+--------------------------------------------------------------------------------
+         4 'SMITH'
+'JAVA'
+
+         5 'CLARK'
+'ORACLE'
+
+         1 'SAFAA'
+'ORACLE'
+
+
+        ID NAME
+---------- --------------------------------------------------
+COURSE
+--------------------------------------------------------------------------------
+         2 'SUNIL'
+'C++'
+
+         3 'JOHN'
+'CYBERSECURITY'
+
+         4 'SMITH'
+'JAVA'
+
+
+        ID NAME
+---------- --------------------------------------------------
+COURSE
+--------------------------------------------------------------------------------
+         5 'CLARK'
+'ORACLE'
+
+
+10 rows selected.
