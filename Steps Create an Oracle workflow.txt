@@ -1,0 +1,27 @@
+--Steps Create an Oracle workflow process to display a notification for your user---
+
+1.Navigate 🡪 System Administrator 🡪 User 🡪 Define 🡪 Query: SAFA
+2.Add RESPONSIBILITY: Workflow Administrator Web Applications
+3.Open WF Builder🡨 Creating a WF Process
+4.File 🡪 Quick start wizard
+5.WF_FIRST
+WF_FIRST
+WF_PROCESS
+6.Message 🡪 RtClk 🡪
+WF_MESSAGE
+Body 🡪 This is a message from Oracle Work flow!!
+7.Notification 🡪 RtClk 🡪
+WF_NOTIFY1
+Message🡨 Attach the message here !!!
+8.Drag the Notification between START and END  (Diagram)
+9.START 🡪 RT CLK 🡪 DRAG a line to Notification
+10.NOTIFY1 🡪 RT CLK 🡪 DRAG a line to END
+11.NOTIFY1 🡪 RT CLK 🡪 Properties 🡪 Node (Tab) 🡪 Value: SAFA (EBS User)
+12.File 🡪 Save as 🡪 Database: appsapps EBSDB
+13.Navigate to EBS and Run the process created in WFB using Developer Studio
+14.Name: WF_FIRST 🡨 Search
+15.Select🡨 Run
+16.Status Monitor🡨 WF_FIRST 🡨 Search
+Diagram
+17.Notification🡨 Select 🡨 Open
+View 🡪 This is a message from Oracle Work flow !!!
