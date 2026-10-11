@@ -1,0 +1,170 @@
+ORACLE EBS - P2P COMPLETE STEPS
+
+1. LOGIN TO EBS
+- Log in to Oracle EBS.
+
+2. ASSIGN RESPONSIBILITIES
+- System Administrator > Security > User > Define
+- Query your user.
+- Add:
+  Inventory, Vision Operations (USA)
+  Purchasing, Vision Operations (USA)
+  Payables, Vision Operations (USA)
+  General Ledger, Vision Operations (USA)
+- Add Preparer / Person: Stock, Ms. Pat
+<Save>
+
+3. CREATE ITEM
+- Inventory, Vision Operations (USA) > Items > Master Items
+- Organization: V1 Vision Operations
+- Item: XX_SAFAA_LAPTOP
+- Description: LAPTOP FOR CODELINE - MUSCAT
+- Tools > Copy From
+- Template: Finished Goods
+- Apply > Done
+- Purchasing Tab > List Price: 100
+<Save>
+
+4. ADD ITEM STOCK
+- Inventory, Vision Operations (USA) > Transactions > Miscellaneous Transactions
+- Type: Miscellaneous Receipt
+- Transaction Lines
+- Item: XX_SAFAA_LAPTOP
+- Subinventory: Stores
+- UOM: Ea
+- Quantity: 1000
+- Account: Employee Exp (if valid for this transaction)
+<Save>
+
+5. CHECK ON-HAND QUANTITY
+- Inventory, Vision Operations (USA) > On-Hand Availability > On-Hand Quantity
+- Item/Revision: XX_SAFAA_LAPTOP
+- Find > Availability
+
+SELECT SEGMENT1 FROM MTL_SYSTEM_ITEMS_B WHERE SEGMENT1 = 'XX_SAFAA_LAPTOP';
+
+6. CREATE PURCHASE REQUISITION
+- Purchasing, Vision Operations (USA) > Requisitions > Requisitions
+Header:
+  Operating Unit: Vision Operations
+  Type: Purchase Requisition
+  Preparer: Stock, Ms. Pat
+Lines:
+  Number: 1
+  Type: Goods
+  Item: XX_SAFAA_LAPTOP
+  Quantity: 2
+  Need-By: 15-NOV-2026
+  Price: 100 (if required)
+Distribution:
+  Location: Auckland
+  Subinventory: Stores
+  Supplier: Abbott Laboratories, Inc. 
+  Site: CORP HQ (if available)
+- Save, note requisition number.
+- Approve > Print > OK.
+
+7. CHECK REQUISITION
+- Purchasing, Vision Operations (USA) > Requisitions > Requisition Summary
+- Enter actual requisition number > Find
+- View Lines and Distributions.
+
+SELECT * FROM PO_REQUISITION_HEADERS_ALL WHERE SEGMENT1 = '<REQ_NUMBER>';
+SELECT * FROM PO_REQUISITION_LINES_ALL WHERE REQUISITION_HEADER_ID = <REQ_HEADER_ID>;
+SELECT * FROM PO_REQ_DISTRIBUTIONS_ALL WHERE REQUISITION_LINE_ID = <REQ_LINE_ID>;
+
+8. CREATE RFQ AND QUOTATION
+- Purchasing, Vision Operations (USA) > RFQs and Quotations > RFQ
+- Operating Unit: Vision Operations
+- Type: Standard RFQ
+- Ship-To: Auckland
+- Close Date: 15-NOV-2026 (must still be valid)
+- Item: XX_SAFAA_LAPTOP
+- Price Breaks:
+  Quantity: 2
+  Org: V1
+  Ship-To: Auckland
+- Save and note RFQ number.
+- Suppliers:
+  Supplier: Abbott Laboratories, Inc.
+  Site: CORP HQ
+<Save>
+- Tools > Copy Document
+- Action: Entire RFQ
+- Type: Standard Quotation
+- Supplier: Abbott Laboratories, Inc.
+- Site: CORP HQ
+<OK>
+- Note quotation number.
+
+SELECT * FROM PO_HEADERS_ALL WHERE SEGMENT1 = '<RFQ_NUMBER>' AND TYPE_LOOKUP_CODE = 'RFQ';
+SELECT * FROM PO_HEADERS_ALL WHERE SEGMENT1 = '<QUOTATION_NUMBER>' AND TYPE_LOOKUP_CODE = 'QUOTATION';
+
+9. CREATE PURCHASE ORDER
+- Purchasing, Vision Operations (USA) > Purchase Orders > Purchase Orders
+- Operating Unit: Vision Operations
+- Supplier: Abbott Laboratories, Inc.
+- Ship-To: Auckland
+- Item: XX_SAFAA_LAPTOP
+- Quantity: 2
+- Price: 100
+- Promised: 15-NOV-2026
+- Need-By: 15-NOV-2026
+- Save and note PO number.
+< Approve > Print > OK.
+
+SELECT * FROM PO_HEADERS_ALL WHERE SEGMENT1 = '<PO_NUMBER>';
+SELECT * FROM PO_LINES_ALL WHERE PO_HEADER_ID = <PO_HEADER_ID>;
+
+10. RECEIVE ITEMS
+- Purchasing, Vision Operations (USA) > Receiving > Receipts
+- Organization: V1 Vision Operations
+- Purchase Order: <PO_NUMBER>
+- Find
+- Enter received quantity: 2
+- Comment: XX_SAFAA_LAPTOP - 2 NOS DELIVERED
+- Save and note receipt number.
+- If required, complete Receiving > Receiving Transactions to deliver stock to Stores.
+
+SELECT * FROM RCV_SHIPMENT_HEADERS WHERE RECEIPT_NUM = '<RECEIPT_NUMBER>';
+
+11. CREATE AP INVOICE
+- Payables, Vision Operations (USA) > Invoices > Entry > Invoices
+- Supplier: Abbott Laboratories, Inc.
+- Supplier Site: CORP HQ
+- PO Number: <PO_NUMBER>
+- Invoice Date: actual appropriate date
+- Invoice Num: SAFAAINV001
+- Invoice Amount: 200
+- Payment Method: CHECK
+- Lines:
+  Amount: 200
+  PO Line: 1 (LOV)
+  PO Shipment: 1 (LOV)
+- Save.
+- Actions > Validate > OK
+- Check Holds, resolve any underlying issue before releasing a hold.
+- Actions > Create Accounting > Final > OK
+- Save.
+
+SELECT * FROM AP_INVOICES_ALL WHERE INVOICE_NUM = 'SAFAAINV001';
+SELECT * FROM AP_INVOICE_LINES_ALL WHERE INVOICE_ID = <INVOICE_ID>;
+
+12. CREATE PAYMENT
+- Payables, Vision Operations (USA) > Payments > Entry > Payments
+- Type: Manual (for a payment already issued)
+- Trading Partner: Abbott Laboratories, Inc.
+- Payment Date: actual appropriate date
+- Bank Account: BofA-204 (if available)
+- Select the validated unpaid invoice SAFAAINV001.
+- Enter check/payment details and save.
+- Actions > Create Accounting > Final > OK.
+
+13. CHECK GENERAL LEDGER
+- Query appropriate journal batches:
+SELECT * FROM GL_JE_HEADERS WHERE NAME LIKE '%Purchase Invoices USD%' ORDER BY JE_HEADER_ID DESC;
+- General Ledger, Vision Operations (USA) > Journals > Enter
+- Find the actual Purchase Invoices journal for the correct period.
+- Review journal lines, debits and credits, and posting status.
+
+END OF P2P PROCESS.
