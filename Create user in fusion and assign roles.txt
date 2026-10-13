@@ -1,0 +1,25 @@
+====To Create user in Oracle Fusion===
+-sign in using A.A USER NAME and PASSWORD.
+---Navigate to >Tools> Security Console
+▪Users ADD USER ACCOUNT
+▪First Name: SAFAA
+▪Last Name: ALMAAMARI
+▪Username: SAFAA.ALMAMARI
+▪Password:
+<SAVE and CLOSE>
+Sign out
+LOGIN with my New USERNAME
+Username: SAFAA.ALMAMARI
+Password: 
+>>>> there is no ASSIGNED ROLES
+➢LOGIN as A.A
+➢ASSIGN ROLES TO User SAFAA.ALMAMARI
+Employee Abstract ROLE
+IT Security Manager Admin ROLE
+<SAVE and CLOSE>
+➢LOGIN as SAFAA.ALMAMARI
+>>>> View all ROLES assigned to this New USER
+➢Password Policy:
+➢User Category: DEFAULT
+Set the required category based on the requirement from Client.
+SAVE & CLOSE
