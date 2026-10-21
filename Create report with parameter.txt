@@ -1,0 +1,46 @@
+# LAB: ADD PARAMETER TO EXISTING DATA MODEL IN BI PUBLISHER
+
+### STEP 1: EDIT EXISTING DATA MODEL
+
+1. Login to Oracle BI Publisher.
+2. Navigate to Catalog.
+3. Open the existing Data Model.
+4. Click Edit.
+5. Under Data Sets, select SS_DM.
+6. Click Edit (Pencil icon).
+7. Modify the SQL query by adding the parameter condition:
+
+   `WHERE "Business Unit"."Business Unit Name" = :BU_NAME`
+
+8. Click OK.
+
+### STEP 2: SELECT THE PARAMETER
+
+1. The Add Parameter window appears.
+2. Select the checkbox BU_NAME.
+3. Click OK.
+
+### STEP 3: CONFIGURE THE PARAMETER
+
+1. Navigate to Parameters.
+2. Select BU_NAME.
+3. Enter the following details:
+
+   - Name: BU_NAME
+   - Data Type: String
+   - Parameter Type: Text
+   - Display Label: BU_NAME
+   - Row Placement: 1
+
+4. Click Save.
+
+### STEP 4: RUN THE REPORT AND CHECK OUTPUT
+
+1. Open the report linked to the Data Model.
+2. Enter the parameter value:
+
+   BU_NAME: Qatar Business Unit
+
+3. Click Apply.
+4. View the generated report.
+5. Verify that the report displays the filtered data.
