@@ -1,0 +1,109 @@
+# CREATE REPORT BASED ON DATA MODEL WITH PARAMETER AND LOV
+
+**Objective:**
+
+1. Create Data Model (DM).
+2. Create Parameter.
+3. Create List of Values (LOV).
+4. Create Report.
+
+### STEP 1: CREATE DATA MODEL
+
+1. Login to Oracle BI Publisher.
+2. Navigate to **Create → Data Model**.
+3. Select **Data Sets → + → SQL Query**.
+4. Enter:
+
+   Name: DM_Department
+
+   Data Source: Oracle BI EE
+
+   Type of SQL: Standard SQL
+
+5. Enter the SQL Query:
+
+```sql
+SELECT
+    "Department"."Department Name" AS "Department Name",
+    "Department"."Department Address" AS "Department Address",
+    "Department"."Location Code" AS "Location Code",
+    "Department"."Location Name" AS "Location Name"
+FROM
+    "Absence Management - Availability Patterns Real Time"."Department" "Department"
+WHERE
+    "Department"."Location Name" = :LOC_NAME
+```
+
+6. Click OK.
+
+### STEP 2: CREATE PARAMETER
+
+1. The Add Parameter window appears.
+2. Select LOC_NAME → OK.
+3. Navigate to Parameters.
+4. Enter:
+
+   Name: LOC_NAME
+
+   Data Type: String
+
+   Default Value: London
+
+   Parameter Type: Menu
+
+### STEP 3: CREATE LOV
+
+1. Navigate to **List of Values → +**.
+2. Name: LOV_LOCATION.
+3. Select SQL Query → Query Builder.
+4. Select Department → Location Name.
+5. Use the following SQL:
+
+```sql
+SELECT DISTINCT
+    "Department"."Location Name" AS "Location Name"
+FROM
+    "Absence Management - Availability Patterns Real Time"."Department" "Department"
+```
+
+6. Click OK.
+
+### STEP 4: ATTACH LOV TO PARAMETER
+
+1. Navigate to Parameters → LOC_NAME.
+2. Parameter Type: Menu.
+3. List of Values: LOV_LOCATION.
+4. Click Save.
+5. Save Data Model as DM_PAR_LOV.xdm.
+
+### STEP 5: TEST DATA MODEL
+
+1. Navigate to Data.
+2. Select LOC_NAME: London.
+3. Click View.
+4. Click Save As Sample Data → OK.
+
+### STEP 6: CREATE REPORT
+
+1. Navigate to **Create → Report**.
+2. Select Data Model: DM_PAR_LOV.xdm.
+3. Click Next.
+4. Select Chart and Table → Next.
+5. Design the Chart → Next.
+6. Add the following columns to the Table:
+
+   - Department_Name
+   - Department_Address
+   - Location_Code
+   - Location_Name
+
+7. Click Next.
+8. Save Report as REPORT_PAR_LOV_DEPARTMENT.
+9. Click Finish.
+
+### STEP 7: RUN REPORT
+
+1. Open REPORT_PAR_LOV_DEPARTMENT.
+2. Select LOC_NAME: London.
+3. Click Apply.
+4. View the report output.
