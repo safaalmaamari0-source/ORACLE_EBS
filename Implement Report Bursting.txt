@@ -1,0 +1,160 @@
+## Implement Report Bursting
+
+STEP 1: CREATE DATA MODEL
+
+1. Login to Oracle Fusion.
+2. Navigate to Tools → Reports and Analytics.
+3. Click Create → Data Model.
+4. Select Data Sets → + → SQL Query.
+5. Enter:
+   - Name: DM_SUPPLIER_BURSTING
+   - Data Source: jdbcAuditViewDataSource
+   - Type of SQL: Standard SQL
+6. Enter the SQL Query:
+
+```sql
+SELECT 1001 AS supplier_id,
+       'Gulf Star LLC' AS supplier_name,
+       1250 AS invoice_amount
+FROM dual
+UNION ALL
+SELECT 1002,
+       'Muscat Office Supplies',
+       2400
+FROM dual
+UNION ALL
+SELECT 1003,
+       'Oman Tech Services',
+       3600
+FROM dual
+ORDER BY 1
+```
+
+7. Click OK → Save.
+8. Navigate to Data → View.
+9. Click Save As Sample Data.
+
+STEP 2: CREATE REPORT
+
+1. Click Create Report.
+2. Select Data Model: DM_SUPPLIER_BURSTING.
+3. Select Table Layout → Next.
+4. Add the columns:
+   - SUPPLIER_ID
+   - SUPPLIER_NAME
+   - INVOICE_AMOUNT
+5. Click Next → Save.
+6. Enter:
+   - Name: REPORT_Supplier_Bursting
+   - Description: Report for Supplier Bursting
+7. Click OK → Finish.
+8. Run the report and check the output.
+
+STEP 3: CREATE RTF TEMPLATE
+
+1. Open the report.
+2. Prepare the report layout as an RTF template.
+3. Open the RTF file in Microsoft Word.
+4. Add the required supplier fields and repeating group.
+5. Save as SUPPLIER_PAYMENT_TEMPLATE.rtf.
+
+STEP 4: UPLOAD RTF TEMPLATE
+
+1. Navigate to Catalog.
+2. Search for REPORT_Supplier_Bursting.
+3. Click Edit.
+4. Click Add New Layout if needed.
+5. Click Properties → Upload.
+6. Select the RTF file.
+7. Enter:
+   - Template Type: RTF
+   - Locale: English
+8. Click OK.
+9. Select English as Default.
+10. Click Save.
+
+STEP 5: CREATE BURSTING DEFINITION
+
+1. Open the Data Model → Edit.
+2. Navigate to Bursting → +.
+3. Enter:
+   - Name: XX_SUPPLIER_PAYMENT_BURST
+   - Type: SQL Query
+   - Data Source: jdbcAuditViewDataSource
+   - Split By: /DATA_DS/G_1/SUPPLIER_ID
+   - Deliver By: /DATA_DS/G_1/SUPPLIER_ID
+4. Enter the Bursting SQL Query:
+
+```sql
+SELECT
+    '1001' AS "KEY",
+    'SUPPLIER_PAYMENT_TEMPLATE' AS TEMPLATE,
+    'en-US' AS LOCALE,
+    'PDF' AS OUTPUT_FORMAT,
+    'EMAIL' AS DEL_CHANNEL,
+    'supplier1@example.com' AS PARAMETER1,
+    NULL AS PARAMETER2,
+    NULL AS PARAMETER3,
+    'Supplier Payment Advice - Gulf Star LLC' AS PARAMETER4,
+    'Please find your payment advice attached.' AS PARAMETER5,
+    'true' AS PARAMETER6,
+    'noreply@example.com' AS PARAMETER7
+FROM dual
+
+UNION ALL
+
+SELECT
+    '1002',
+    'SUPPLIER_PAYMENT_TEMPLATE',
+    'en-US',
+    'PDF',
+    'EMAIL',
+    'supplier2@example.com',
+    NULL,
+    NULL,
+    'Supplier Payment Advice - Muscat Office Supplies',
+    'Please find your payment advice attached.',
+    'true',
+    'noreply@example.com'
+FROM dual
+
+UNION ALL
+
+SELECT
+    '1003',
+    'SUPPLIER_PAYMENT_TEMPLATE',
+    'en-US',
+    'PDF',
+    'EMAIL',
+    'supplier3@example.com',
+    NULL,
+    NULL,
+    'Supplier Payment Advice - Oman Tech Services',
+    'Please find your payment advice attached.',
+    'true',
+    'noreply@example.com'
+FROM dual
+```
+
+5. Click Save.
+
+STEP 6: RUN AND TEST BURSTING
+
+1. Open REPORT_Supplier_Bursting.
+2. Click Schedule.
+3. Enable Use Bursting Definition.
+4. Submit the report job.
+5. Navigate to Report Job History.
+6. Check the job status.
+7. Verify that three separate PDF reports are generated.
+8. Check that each PDF is delivered to the correct test email address.
+
+EXPECTED RESULT:
+
+Bursting generates three separate PDFs:
+
+1. Supplier 1001 → Gulf Star LLC
+2. Supplier 1002 → Muscat Office Supplies
+3. Supplier 1003 → Oman Tech Services
+
+Each PDF is delivered to its assigned test email address when email delivery is correctly configured.
