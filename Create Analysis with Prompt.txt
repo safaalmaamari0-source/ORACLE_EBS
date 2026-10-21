@@ -1,0 +1,49 @@
+# CREATE ANALYSIS WITH PROMPT
+
+### STEP 1: CREATE ANALYSIS
+
+1. Login to Oracle BI.
+2. Navigate to **Create → Analysis**.
+3. Select Subject Area: Absence Management - Leave Donations Real Time.
+4. Expand Business Unit.
+5. Select the following columns:
+   - Business Unit Id
+   - Business Unit Name
+   - Business Unit Active Status Code
+
+### STEP 2: VIEW ANALYSIS
+
+1. Click Results.
+2. The table displays the selected Business Unit details.
+
+### STEP 3: CREATE PROMPT
+
+1. Navigate to Criteria.
+2. Add Business Unit Name again if needed.
+3. Click Results.
+4. Move the additional Business Unit Name column to **Table Prompts**.
+5. A dropdown list appears for Business Unit Name.
+6. Select a Business Unit to filter the results.
+
+### STEP 4: TEST THE PROMPT
+
+1. Select Business Unit Name: US1 Business Unit.
+2. Verify that the table displays the selected Business Unit details.
+
+### STEP 5: SAVE ANALYSIS
+
+1. Click Save As.
+2. Select My Folders → SS.
+3. Enter:
+
+   Name: Analysis_prompt_BU
+
+   Description: Analysis with prompt for a BU
+
+4. Click OK.
+
+### STEP 6: RUN ANALYSIS
+
+1. Open Analysis_prompt_BU.
+2. Select Business Unit Name: US1 Business Unit.
+3. View the filtered results.
