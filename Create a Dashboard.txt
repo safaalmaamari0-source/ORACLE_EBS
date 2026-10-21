@@ -1,0 +1,24 @@
+# CREATE DASHBOARD 
+
+
+### STEP 1: CREATE DASHBOARD
+
+1. Login to Oracle BI.
+2. Navigate to **Create → Dashboard**.
+3. Enter Dashboard Name: DB_SAFAA.ALMAAMARI.
+4. Select your folder under My Folders.
+5. Click OK.
+
+### STEP 2: ADD REPORTS AND ANALYSIS
+
+1. The Dashboard Editor opens with Page 1 by default.
+2. From the Catalog, select your saved Reports and Analysis.
+3. Drag and drop them onto the Dashboard page.
+4. Arrange them as required.
+5. Click Save.
+
+### STEP 3: RUN DASHBOARD
+
+1. Click Run to open the Dashboard.
+2. Verify that the Reports and Analysis are displayed.
+
