@@ -1,0 +1,30 @@
+## CREATE A DATA MODEL USING ANALYSIS
+
+STEP 1: CREATE DATA MODEL
+
+1. Login to Oracle BI Publisher.
+2. Navigate to Create → Data Model.
+3. Select Data Sets → + → Analysis.
+
+STEP 2: SELECT EXISTING ANALYSIS
+
+1. Enter Name: DM_Analysis.
+2. Click Browse beside Analysis.
+3. Select My Folders → SS → Analysis_prompt_BU.
+4. Click OK.
+
+STEP 3: TEST DATA MODEL
+
+1. Open the Data tab.
+2. Click View.
+3. Verify that Business Unit records are displayed.
+4. Click Save As Sample Data.
+
+STEP 4: SAVE DATA MODEL
+
+1. Click Save As.
+2. Select My Folders → SS.
+3. Enter Name: DM_Analysis_BU.
+4. Enter Description: Data Model based on Analysis.
+5. Click OK.
+
